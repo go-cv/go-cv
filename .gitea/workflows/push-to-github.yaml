@@ -22,7 +22,7 @@ jobs:
           git config --global user.name "${GIT_NAME}"
           git config --global user.email "${GIT_EMAIL}"
           git config --global credential.helper store
-          printf "https://${GIT_EMAIL//@/%40}:${GIT_TOKEN}@github.com" > ~/.git-credentials
+          echo "https://${GIT_EMAIL//@/%40}:${GIT_TOKEN}@github.com" > ~/.git-credentials
         env:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
           GIT_NAME: ${{ secrets.GIT_NAME }}
