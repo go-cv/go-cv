@@ -31,10 +31,10 @@ jobs:
       - run: |
           git remote add github "${GIT_REPO_URL}" || git remote set-url github "${GIT_REPO_URL}"
           echo "DEBUG"
-          echo "${GIT_TOKEN}"
+          echo "${GIT_NAME}"
           cat ~/.git-credentials
         env:
-          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GIT_NAME: ${{ secrets.GIT_NAME }}
           GIT_REPO_URL: ${{ secrets.GIT_REPO_URL }}
 
       - run: |
