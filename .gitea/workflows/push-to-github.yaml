@@ -30,11 +30,7 @@ jobs:
 
       - run: |
           git remote add github "${GIT_REPO_URL}" || git remote set-url github "${GIT_REPO_URL}"
-          echo "DEBUG"
-          cat ~/.git-credentials | base64
-        env:
-          GIT_REPO_URL: ${{ secrets.GIT_REPO_URL }}
-
-      - run: |
           git push github --all
           git push github --tags
+        env:
+          GIT_REPO_URL: ${{ secrets.GIT_REPO_URL }}
