@@ -19,18 +19,18 @@ jobs:
       - uses: actions/checkout@v4
 
       - run: |
-          git config --global user.name "${GITHUB_NAME}"
-          git config --global user.email "${GITHUB_EMAIL}"
+          git config --global user.name "${GIT_NAME}"
+          git config --global user.email "${GIT_EMAIL}"
           git config --global credential.helper store
-          printf "https://${GITHUB_EMAIL//@/%40}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
+          printf "https://${GIT_EMAIL//@/%40}:${GIT_TOKEN}@github.com" > ~/.git-credentials
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_NAME: ${{ secrets.GITHUB_NAME }}
-          GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
+          GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+          GIT_NAME: ${{ secrets.GIT_NAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
 
       - run: |
-          git remote add github "${GITHUB_REPO_URL}" || git remote set-url github "${GITHUB_REPO_URL}"
+          git remote add github "${GIT_REPO_URL}" || git remote set-url github "${GIT_REPO_URL}"
           git push github --all
           git push github --tags
         env:
-          GITHUB_REPO_URL: ${{ secrets.GITHUB_REPO_URL }}
+          GIT_REPO_URL: ${{ secrets.GIT_REPO_URL }}
