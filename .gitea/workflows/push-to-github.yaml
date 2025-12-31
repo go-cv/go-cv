@@ -1,0 +1,36 @@
+---
+name: Push to GitHub
+concurrency:
+  group: push-to-github
+  cancel-in-progress: false
+
+on:
+  push:
+    branches: ["**"]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - run: |
+          git config --global user.name "${GITHUB_NAME}"
+          git config --global user.email "${GITHUB_EMAIL}"
+          git config --global credential.helper store
+          printf "https://${GITHUB_EMAIL//@/%40}:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_NAME: ${{ secrets.GITHUB_NAME }}
+          GITHUB_EMAIL: ${{ secrets.GITHUB_EMAIL }}
+
+      - run: |
+          git remote add github "${GITHUB_REPO_URL}" || git remote set-url github "${GITHUB_REPO_URL}"
+          git push github --all
+          git push github --tags
+        env:
+          GITHUB_REPO_URL: ${{ secrets.GITHUB_REPO_URL }}
