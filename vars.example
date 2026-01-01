@@ -1,0 +1,15 @@
+#/usr/bin/env bash
+
+export GIT_HOST=git.bjphoster.com
+export DEPLOYMENT_HOST=deploy.example.com
+export DEPLOYMENT_PATHS=/srv/example
+export GO_BUILDER=bryanpedini/gobuilder
+export GO_VERSION=1.22.2-alpine3.19
+export GOOS=linux
+export GOARCH=amd64
+export REPO_ORG=source
+export REPO_NAME=go-template-container-webserver
+export CONTAINER_ORG=git.bjphoster.com/source
+export CONTAINER_IMAGE=go-template-container-webserver
+export CONTAINER_IP=127.0.0.1
+export CONTAINER_PORT=3000
