@@ -20,7 +20,7 @@ func handleVersion(w http.ResponseWriter, r *http.Request) {
 	// Return (write) the version to the response body
 	tmpl.Execute(w, SiteInfo{
 		CommitId: COMMIT_ID,
-		Name:     "YASKM",
+		Name:     ws.AppName,
 		Version:  APP_VERSION,
 	})
 }

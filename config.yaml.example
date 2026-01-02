@@ -1,4 +1,6 @@
 ---
+app_name: Go Template Container Web Server
+
 listen:
   address: 0.0.0.0
   port: 80
