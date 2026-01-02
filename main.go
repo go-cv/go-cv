@@ -22,7 +22,7 @@ func main() {
 	ws = new(WebServer)
 	ws.Initialize()
 
-	// Start the WebService
+	// Start the WebService in a separate goroutine
 	go ws.Start()
 
 	// Wait for a signal
