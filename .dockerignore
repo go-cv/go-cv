@@ -1,0 +1,7 @@
+LICENSE
+dockerfile
+makefile
+.vars
+.cursor
+*.md
+*.sh

@@ -1,0 +1,5 @@
+.env
+.vars
+data
+config.yaml
+*.sql
