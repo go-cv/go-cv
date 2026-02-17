@@ -1,18 +1,20 @@
 #!/usr/bin/env bash
 
-# Get version from user
-read -p "Version [latest]: " VERSIONINPUT
-# If version was not provided, use the latest commit short hash as version
-if [ -z ${VERSIONINPUT} ]; then
-  APP_VERSION="latest"
-else
-  APP_VERSION=${VERSIONINPUT}
+if [ -z ${APP_VERSION} ]; then
+  read -p "Version [latest]: " VERSIONINPUT
+  if [ -z ${VERSIONINPUT} ]; then
+    APP_VERSION="latest"
+  else
+    APP_VERSION=${VERSIONINPUT}
+  fi
 fi
 
 # Get docker push option from user
-read -p "Docker push? [n]: " DOCKERPUSH
 if [ -z ${DOCKERPUSH} ]; then
-  DOCKERPUSH=n
+  read -p "Docker push? [n]: " DOCKERPUSH
+  if [ -z ${DOCKERPUSH} ]; then
+    DOCKERPUSH=n
+  fi
 fi
 
 # Create version tag (if provided)
