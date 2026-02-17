@@ -30,6 +30,9 @@ dockerpush:
 deploy:
 	bash -c "./deploy.sh"
 
+test:
+	go test ./...
+
 version:
 	bash -c "./version.sh"
 
