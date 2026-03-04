@@ -28,11 +28,23 @@ func (s *WebServer) Initialize() {
 	}
 	s.AppName = "Go Template Container Web Server"
 
-	// Attempt to read the config file
+	// Attempt to read the config file (try both config.yml and config.yaml)
+	var configFile []byte
+	var configPath string
+
 	configFile, err := os.ReadFile("config.yml")
+	if err == nil {
+		configPath = "config.yml"
+	} else {
+		configFile, err = os.ReadFile("config.yaml")
+		if err == nil {
+			configPath = "config.yaml"
+		}
+	}
+
 	if err != nil {
 		if os.IsNotExist(err) {
-			// File does not exist, log and use default config
+			// Neither file exists, log and use default config
 			fmt.Println("Config file not found, using default settings.")
 		} else {
 			// Some other error occurred when trying to read the file, exit
@@ -43,7 +55,7 @@ func (s *WebServer) Initialize() {
 		// If the file exists, unmarshal it into the ServiceSettings struct
 		err = yaml.Unmarshal(configFile, &s)
 		if err != nil {
-			fmt.Println("Error parsing config file:", err)
+			fmt.Println("Error parsing config file:", configPath, err)
 			os.Exit(1)
 		}
 	}
