@@ -12,6 +12,7 @@ import (
 type WebServer struct {
 	HTTPServer *http.Server
 	AppName    string   `yaml:"app_name"`
+	Theme      string   `yaml:"theme"`
 	Listen     WSListen `yaml:"listen"`
 }
 
@@ -27,6 +28,8 @@ func (s *WebServer) Initialize() {
 		Port:    "80",
 	}
 	s.AppName = "Go Template Container Web Server"
+	s.Theme = "default"
+	s.Theme = "default"
 
 	// Attempt to read the config file (try both config.yml and config.yaml)
 	var configFile []byte

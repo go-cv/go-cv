@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"os"
 	"path/filepath"
 	"strings"
@@ -18,6 +19,12 @@ type ContentFile struct {
 	HTML       string // Converted HTML
 }
 
+// PageData represents data passed to the template
+type PageData struct {
+	Title   string
+	Content template.HTML
+}
+
 // generateOutput reads content from ./content, processes it, and writes to ./output
 func generateOutput() error {
 	// Ensure content directory exists
@@ -28,6 +35,13 @@ func generateOutput() error {
 	// Ensure output directory exists
 	if err := os.MkdirAll(outputPath, 0755); err != nil {
 		return fmt.Errorf("failed to create output directory: %w", err)
+	}
+
+	// Load the theme template
+	themePath := filepath.Join("themes", ws.Theme, "base.html")
+	tmpl, err := template.ParseFiles(themePath)
+	if err != nil {
+		return fmt.Errorf("failed to load theme template %s: %w", themePath, err)
 	}
 
 	// Read all markdown files from content directory
@@ -52,12 +66,22 @@ func generateOutput() error {
 		}
 		file.HTML = html
 
+		// Apply theme template
+		var output bytes.Buffer
+		data := PageData{
+			Title:   file.Name + " - " + ws.AppName,
+			Content: template.HTML(file.HTML),
+		}
+		if err := tmpl.Execute(&output, data); err != nil {
+			return fmt.Errorf("failed to execute template for %s: %w", file.SourcePath, err)
+		}
+
 		// Write output
 		outputFile := filepath.Join(outputPath, file.Name+".html")
-		if err := os.WriteFile(outputFile, []byte(html), 0644); err != nil {
+		if err := os.WriteFile(outputFile, output.Bytes(), 0644); err != nil {
 			return fmt.Errorf("failed to write %s: %w", outputFile, err)
 		}
-		fmt.Printf("  -> Written: %s\n", outputPath)
+		fmt.Printf("  -> Written: %s\n", outputFile)
 	}
 
 	return nil
