@@ -11,19 +11,22 @@
 - [x] Project backbone exists (HTTP server, graceful shutdown, config reading).
 - [x] Markdown parsing logic implemented (using goldmark).
 - [x] HTML Template engine integrated (Hugo-like theme selection).
-- [ ] PDF Generation implemented (Pure Go library selected and integrated).
+- [x] PDF Generation implemented (using go-pdf/fpdf - Pure Go library).
 - [x] CLI Mode (`gocv`) generates static files to `./output` and exits.
-- [ ] Serve Mode (`gocv serve`) hosts HTML and serves PDF on demand.
-- [ ] File Watcher implemented for live reload in Serve Mode.
+- [x] Serve Mode (`gocv serve`) hosts HTML and serves PDF on demand.
+- [x] File Watcher implemented for live reload in Serve Mode (using fsnotify).
 - [ ] Dockerfile created for multi-stage build.
 
 ## Active Task
 - [x] Analyze existing backbone code and integrate Markdown parsing.
 - [x] Integrate HTML template engine with theme selection.
-- [ ] Implement Serve Mode with file watching for live reload.
+- [x] Implement Serve Mode with file watching for live reload.
+- [ ] Create Dockerfile for multi-stage build.
 
 ## Known Issues / Blockers
-- [ ] Identify best Pure Go PDF library that supports HTML/CSS (or define CSS subset).
+- [x] Identify best Pure Go PDF library that supports HTML/CSS (or define CSS subset).
+  - Selected go-pdf/fpdf - generates PDFs programmatically from markdown AST.
+  - Note: Not HTML-to-PDF conversion; walks goldmark AST and renders directly.
 - [x] Current output is raw HTML fragments without full HTML document structure.
 
 ## Completed Log

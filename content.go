@@ -82,6 +82,11 @@ func generateOutput() error {
 			return fmt.Errorf("failed to write %s: %w", outputFile, err)
 		}
 		fmt.Printf("  -> Written: %s\n", outputFile)
+
+		// Generate PDF
+		if err := generatePDF(file.Content, file.Name); err != nil {
+			fmt.Printf("  -> PDF generation failed: %s\n", err)
+		}
 	}
 
 	return nil
