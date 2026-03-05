@@ -19,15 +19,15 @@ RUN CGO_ENABLED=0 GOOS=${GO_OS} GOARCH=${GO_ARCH} \
     go build \
     -installsuffix cgo \
     -ldflags="-w -s -X 'main.APP_VERSION=${APP_VERSION}' -X 'main.COMMIT_ID=$(git log HEAD --oneline | awk '{print $1}' | head -n1)'" \
-    --o /app
+    --o /gocv
 
 # Stage 2 · scratch image
 FROM scratch
 
 # Copy the necessary stuff from the build stage
-COPY --from=build /app /app
+COPY --from=build /gocv /gocv
 # Copy the certificates - in case of fetches
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/cert.pem
 
 # Execute the binary
-ENTRYPOINT ["/app"]
+ENTRYPOINT ["/gocv serve"]
