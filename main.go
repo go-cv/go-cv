@@ -52,6 +52,21 @@ func runCLIMode() {
 func runServeMode() {
 	fmt.Println("Running in Serve mode...")
 
+	// Generate initial output
+	fmt.Println("Generating initial output...")
+	if err := generateOutput(); err != nil {
+		fmt.Printf("Error generating initial output: %s\n", err)
+	}
+
+	// Start file watcher for live reload
+	watcher, err := startWatcher()
+	if err != nil {
+		fmt.Printf("Warning: Failed to start file watcher: %s\n", err)
+	}
+	if watcher != nil {
+		defer watcher.Close()
+	}
+
 	// Create a channel to receive the OS signals
 	sc := make(chan os.Signal, 1)
 	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM)
@@ -68,7 +83,7 @@ func runServeMode() {
 	defer shCancel()
 
 	// Shutdown the HTTP server
-	err := ws.HTTPServer.Shutdown(shCtx)
+	err = ws.HTTPServer.Shutdown(shCtx)
 	if err != nil {
 		fmt.Printf("Server shutdown error: %s", err)
 		os.Exit(1)
