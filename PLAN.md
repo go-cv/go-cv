@@ -5,7 +5,7 @@
 - [x] Config via `config.yaml` only (no CLI flags).
 - [x] Hardcoded paths: `./content` (input), `./output` (build artifacts).
 - [x] Modes: `gocv` (CLI), `gocv serve` (Daemon).
-- [ ] Commit at every loop iteration. Do not push. Do not tag.
+- [x] Commit at every loop iteration. Do not push. Do not tag. (Workflow instruction)
 
 ## Current Status
 - [x] Project backbone exists (HTTP server, graceful shutdown, config reading).
