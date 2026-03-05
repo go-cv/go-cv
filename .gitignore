@@ -3,3 +3,7 @@
 data
 config.yaml
 *.sql
+
+# Build artifacts
+gocv
+output/
