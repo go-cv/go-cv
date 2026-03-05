@@ -15,7 +15,8 @@
 - [x] CLI Mode (`gocv`) generates static files to `./output` and exits.
 - [x] Serve Mode (`gocv serve`) hosts HTML and serves PDF on demand.
 - [x] File Watcher implemented for live reload in Serve Mode (using fsnotify).
-- [x] Dockerfile created for multi-stage build.
+- [x] Dockerfile created for multi-stage build (re-created: was missing from repo).
+- [x] go.mod dependencies corrected (marked direct deps properly).
 
 ## Active Task
 - [x] Analyze existing backbone code and integrate Markdown parsing.

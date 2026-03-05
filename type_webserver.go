@@ -29,7 +29,6 @@ func (s *WebServer) Initialize() {
 	}
 	s.AppName = "Go Template Container Web Server"
 	s.Theme = "default"
-	s.Theme = "default"
 
 	// Attempt to read the config file (try both config.yml and config.yaml)
 	var configFile []byte
