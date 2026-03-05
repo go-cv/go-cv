@@ -23,7 +23,7 @@
 - [x] Integrate HTML template engine with theme selection.
 - [x] Implement Serve Mode with file watching for live reload.
 - [x] Create Dockerfile for multi-stage build.
-- [ ] All tasks complete - project ready for testing.
+- [x] All tasks complete - project ready for testing.
 
 ## Known Issues / Blockers
 - [x] Identify best Pure Go PDF library that supports HTML/CSS (or define CSS subset).
